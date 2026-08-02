@@ -1,9 +1,10 @@
 import { useState } from "react";
 import type { LoginFormData } from "../types/auth";
 import { useNavigate } from "react-router-dom";
+import { login } from "../services/authService";
 
 function Login() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<LoginFormData>({
     email: "",
     password: "",
@@ -18,10 +19,12 @@ function Login() {
     });
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const data = await login(formData);
+    localStorage.setItem("token", data.token);
+    console.log(data);
 
-    console.log(formData);
     navigate("/dashboard");
   }
 
@@ -29,7 +32,7 @@ function Login() {
     <div className="login-page">
       <div className="login-card">
         <h1>Job Tracker</h1>
-  
+
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Email</label>
@@ -40,7 +43,7 @@ function Login() {
               onChange={handleChange}
             />
           </div>
-  
+
           <div className="form-group">
             <label>Password</label>
             <input
@@ -50,7 +53,7 @@ function Login() {
               onChange={handleChange}
             />
           </div>
-  
+
           <button type="submit">
             Login
           </button>
