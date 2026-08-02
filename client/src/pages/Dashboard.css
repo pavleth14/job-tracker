@@ -1,22 +1,38 @@
 .dashboard {
-    max-width: 1000px;
-    margin: 50px auto;
-    padding: 30px;
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.dashboard h1 {
+  text-align: center;
+  font-size: 2.3rem;
+  margin-bottom: 10px;
+}
+
+.dashboard > p {
+  text-align: center;
+  color: #6b7280;
+  margin-bottom: 35px;
+}
+
+.jobs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 15px;
+    margin: 25px auto;
   }
-  
+
   .dashboard h1 {
-    font-size: 2.2rem;
-    margin-bottom: 8px;
-    color: #1f2937;
+    font-size: 1.8rem;
   }
-  
+
   .dashboard > p {
-    color: #6b7280;
-    margin-bottom: 30px;
+    font-size: 15px;
   }
-  
-  .jobs-list {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
+}

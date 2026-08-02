@@ -1,24 +1,19 @@
 .job-form {
-  background: white;
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 35px;
-
   display: flex;
   gap: 15px;
-  align-items: center;
-
-  box-shadow: 0 8px 25px rgba(0,0,0,.08);
+  margin-bottom: 35px;
+  padding: 20px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
 }
 
 .job-form input {
   flex: 1;
-  padding: 14px 16px;
-  border: 1px solid #d1d5db;
+  padding: 14px;
   border-radius: 10px;
-  font-size: 15px;
+  border: 1px solid #d1d5db;
   outline: none;
-  transition: .2s;
 }
 
 .job-form input:focus {
@@ -27,16 +22,26 @@
 
 .job-form button {
   padding: 14px 22px;
-  background: #2563eb;
-  color: white;
   border: none;
   border-radius: 10px;
-  font-size: 15px;
-  font-weight: 600;
   cursor: pointer;
-  transition: .2s;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
 }
 
 .job-form button:hover {
   background: #1d4ed8;
+}
+
+@media (max-width: 768px) {
+
+  .job-form {
+    flex-direction: column;
+  }
+
+  .job-form button {
+    width: 100%;
+  }
+
 }
