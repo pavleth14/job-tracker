@@ -1,0 +1,22 @@
+.dashboard {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 30px;
+  }
+  
+  .dashboard h1 {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+    color: #1f2937;
+  }
+  
+  .dashboard > p {
+    color: #6b7280;
+    margin-bottom: 30px;
+  }
+  
+  .jobs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
