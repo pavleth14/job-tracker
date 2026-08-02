@@ -10,15 +10,25 @@ interface JobCardProps {
 
 function JobCard({ job, fetchJobs }: JobCardProps) {
 
-  const handleStatusChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
-    await updateJob(job._id, e.target.value);
-    await fetchJobs();
-  }
+  const handleStatusChange = async (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    try {
+      await updateJob(job._id, e.target.value);
+      await fetchJobs();
+    } catch (error) {
+      alert("Failed to update job status.");
+    }
+  };
 
   const handleDelete = async () => {
-    await deleteJob(job._id);
-    await fetchJobs();
-  }
+    try {
+      await deleteJob(job._id);
+      await fetchJobs();
+    } catch (error) {
+      alert("Failed to delete job.");
+    }
+  };
 
   return (
     <div className="job-card">

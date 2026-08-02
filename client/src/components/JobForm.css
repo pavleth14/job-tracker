@@ -28,6 +28,7 @@
   background: #2563eb;
   color: white;
   font-weight: 600;
+  width: 30%;
 }
 
 .job-form button:hover {
@@ -44,4 +45,11 @@
     width: 100%;
   }
 
+}
+
+.error-message {
+  color: #dc2626;
+  font-weight: 600;
+  margin-top: 15px;
+  text-align: center;
 }

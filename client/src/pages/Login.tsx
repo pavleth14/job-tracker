@@ -1,15 +1,16 @@
 import { useState } from "react";
-import type { LoginFormData } from "../types/auth";
-import { useNavigate } from "react-router-dom";
+import type { AuthFormData } from "../types/auth";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../services/authService";
 import "./Login.css";
 
 function Login() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState<LoginFormData>({
+  const [formData, setFormData] = useState<AuthFormData>({
     email: "",
     password: "",
   });
+  const [error, setError] = useState("");
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
@@ -22,11 +23,19 @@ function Login() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const data = await login(formData);
-    localStorage.setItem("token", data.token);
-    console.log(data);
 
-    navigate("/dashboard");
+    setError("");
+
+    try {
+      const data = await login(formData);
+
+      localStorage.setItem("token", data.token);
+
+      navigate("/dashboard");
+
+    } catch (error) {
+      setError("Invalid email or password");
+    }
   }
 
   return (
@@ -58,7 +67,14 @@ function Login() {
           <button type="submit">
             Login
           </button>
+          {error && <p className="error-message">{error}</p>}
         </form>
+        <div className="auth-link">
+          <p>
+            Don't have an account?{" "}
+            <Link to="/register">Register</Link>
+          </p>
+        </div>
       </div>
     </div>
   );

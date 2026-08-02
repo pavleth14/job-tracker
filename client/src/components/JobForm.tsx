@@ -4,13 +4,14 @@ import "./JobForm.css";
 
 interface JobFormProps {
     fetchJobs: () => Promise<void>;
-  }
+}
 
-  function JobForm({ fetchJobs }: JobFormProps) {
+function JobForm({ fetchJobs }: JobFormProps) {
     const [formData, setFormData] = useState({
         company: '',
         position: ''
     });
+    const [error, setError] = useState("");
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = event.target;
@@ -21,36 +22,49 @@ interface JobFormProps {
     }
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault();      
-        const job = await createJob(formData);    
-        await fetchJobs();
-        console.log(job);
-        setFormData({
-            company: '',
-            position: ''
-        })
-      }
+        event.preventDefault();
+
+        setError("");
+
+        try {
+            await createJob(formData);
+
+            await fetchJobs();
+
+            setFormData({
+                company: "",
+                position: "",
+            });
+
+        } catch (error) {
+            setError("Failed to create job.");
+        }
+    }
 
     return (
-        <form className="job-form" onSubmit={handleSubmit}>
-            <input
-                type="text"
-                name="company"
-                placeholder="Company"
-                value={formData.company}
-                onChange={handleChange}
-            />
-            <input
-                type="text"
-                name="position"
-                placeholder="Position"
-                value={formData.position}
-                onChange={handleChange}
-            />
-            <button type="submit">
-                Add Job
-            </button>
-        </form>
+        <div>
+            <form className="job-form" onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    name="company"
+                    placeholder="Company"
+                    value={formData.company}
+                    onChange={handleChange}
+                />
+                <input
+                    type="text"
+                    name="position"
+                    placeholder="Position"
+                    value={formData.position}
+                    onChange={handleChange}
+                />
+                <button type="submit">
+                    Add Job
+                </button>
+            </form>
+            {error && <p className="error-message">{error}</p>}
+        </div>
+
     )
 }
 
