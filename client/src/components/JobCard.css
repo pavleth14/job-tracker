@@ -9,6 +9,12 @@
   padding: 20px;
 
   box-shadow: 0 8px 24px rgba(0,0,0,.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.job-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(0,0,0,.12);
 }
 
 .job-info p {
@@ -38,6 +44,12 @@
   padding: 10px 18px;
   border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.job-actions button:hover {
+  background: #dc2626;
+  transform: scale(1.03);
 }
 
 .job-actions button:hover {
@@ -63,3 +75,49 @@
   }
 
 }
+
+.status-badge {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* Wishlist */
+
+.status-badge.wishlist {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+/* Applied */
+
+.status-badge.applied {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+/* Interview */
+
+.status-badge.interview {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+/* Offer */
+
+.status-badge.offer {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+/* Rejected */
+
+.status-badge.rejected {
+  background: #fee2e2;
+  color: #dc2626;
+}
+

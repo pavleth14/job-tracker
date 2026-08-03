@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createJob } from "../services/jobService";
+import { toast } from "react-toastify";
 import "./JobForm.css";
 
 interface JobFormProps {
@@ -44,8 +45,9 @@ function JobForm({ fetchJobs }: JobFormProps) {
 
     try {
       await createJob(formData);
-
       await fetchJobs();
+      
+      toast.success("Job created.");
 
       setFormData({
         company: "",

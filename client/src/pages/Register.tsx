@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { AuthFormData } from "../types/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../services/authService";
+import { toast } from "react-toastify";
 import "./Login.css";
 
 function Register() {
@@ -10,9 +11,7 @@ function Register() {
     const [formData, setFormData] = useState<AuthFormData>({
         email: "",
         password: "",
-    });
-
-    const [error, setError] = useState("");
+    });    
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = event.target;
@@ -26,14 +25,12 @@ function Register() {
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        setError("");
-
         try {
             await register(formData);
-
+            toast.success("Account created successfully.");
             navigate("/login");
         } catch (error) {
-            setError("Registration failed");
+            toast.error("Failed to register user.");
         }
     }
 
@@ -69,11 +66,6 @@ function Register() {
                         Register
                     </button>
 
-                    {error && (
-                        <p className="error-message">
-                            {error}
-                        </p>
-                    )}
                 </form>
                 <div className="auth-link">
                     <p>

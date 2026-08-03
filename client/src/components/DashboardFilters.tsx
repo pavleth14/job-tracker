@@ -18,19 +18,20 @@ interface DashboardFiltersProps {
     setSortBy,
   }: DashboardFiltersProps) {
     return (
-      <>
-        <div className="search-container">
+      <div className="dashboard-filters">
+  
+        <div className="filter-group search-group">
           <input
             type="text"
-            placeholder="Search by company..."
+            placeholder="🔍 Search by company..."
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
           />
         </div>
   
-        <div className="filter-container">
+        <div className="filter-group">
           <label htmlFor="statusFilter">
-            Filter by status:
+            Filter
           </label>
   
           <select
@@ -47,9 +48,9 @@ interface DashboardFiltersProps {
           </select>
         </div>
   
-        <div className="sort-container">
+        <div className="filter-group">
           <label htmlFor="sortBy">
-            Sort by:
+            Sort
           </label>
   
           <select
@@ -63,7 +64,8 @@ interface DashboardFiltersProps {
             <option value="Company Z-A">Company Z-A</option>
           </select>
         </div>
-      </>
+  
+      </div>
     );
   }
   

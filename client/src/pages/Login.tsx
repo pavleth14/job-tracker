@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { AuthFormData } from "../types/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../services/authService";
+import { toast } from "react-toastify";
 import "./Login.css";
 
 function Login() {
@@ -30,6 +31,8 @@ function Login() {
       const data = await login(formData);
 
       localStorage.setItem("token", data.token);
+
+      toast.success("Welcome back!");
 
       navigate("/dashboard");
 

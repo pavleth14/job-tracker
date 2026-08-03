@@ -7,6 +7,7 @@ import JobForm from "../components/JobForm";
 import DashboardStats from "../components/DashboardStats";
 import DashboardHeader from "../components/DashboardHeader";
 import DashboardFilters from "../components/DashboardFilters";
+import Loading from "../components/Loading";
 import "./Dashboard.css";
 
 function Dashboard() {
@@ -107,7 +108,7 @@ function Dashboard() {
   if (loading) {
     return (
       <div className="dashboard">
-        <h2>Loading jobs...</h2>
+        <Loading />
       </div>
     );
   }
@@ -122,14 +123,16 @@ function Dashboard() {
 
       <JobForm fetchJobs={fetchJobs} />
 
-      <DashboardFilters
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        statusFilter={statusFilter}
-        setStatusFilter={setStatusFilter}
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-      />
+      <div className="dashboard-toolbar">
+        <DashboardFilters
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          statusFilter={statusFilter}
+          setStatusFilter={setStatusFilter}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+        />
+      </div>
 
       <div className="jobs-list">
         {jobs.length === 0 ? (
