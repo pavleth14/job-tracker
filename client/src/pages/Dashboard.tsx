@@ -4,6 +4,9 @@ import { getJobs } from "../services/jobService";
 import type { Job } from "../types/job";
 import JobCard from "../components/JobCard";
 import JobForm from "../components/JobForm";
+import DashboardStats from "../components/DashboardStats";
+import DashboardHeader from "../components/DashboardHeader";
+import DashboardFilters from "../components/DashboardFilters";
 import "./Dashboard.css";
 
 function Dashboard() {
@@ -91,6 +94,15 @@ function Dashboard() {
       }
     });
 
+  const stats = {
+    total: jobs.length,
+    wishlist: jobs.filter((job) => job.status === "wishlist").length,
+    applied: jobs.filter((job) => job.status === "applied").length,
+    interview: jobs.filter((job) => job.status === "interview").length,
+    offer: jobs.filter((job) => job.status === "offer").length,
+    rejected: jobs.filter((job) => job.status === "rejected").length,
+  };
+
 
   if (loading) {
     return (
@@ -102,65 +114,22 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
-      <div className="dashboard-header">
-        <div>
-          <h1>Job Tracker</h1>
-          <p>Track all your job applications in one place.</p>
-        </div>
-
-        <button className="logout-btn" onClick={handleLogout}>
-          Logout
-        </button>
-      </div>
+      <DashboardHeader onLogout={handleLogout} />
 
       {error && <p className="error-message">{error}</p>}
 
+      <DashboardStats stats={stats} />
+
       <JobForm fetchJobs={fetchJobs} />
 
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Search by company..."
-          value={searchTerm}
-          onChange={(event) => setSearchTerm(event.target.value)}
-        />
-      </div>
-
-      <div className="filter-container">
-        <label htmlFor="statusFilter">
-          Filter by status:
-        </label>
-
-        <select
-          id="statusFilter"
-          value={statusFilter}
-          onChange={(event) => setStatusFilter(event.target.value)}
-        >
-          <option value="all">All</option>
-          <option value="wishlist">Wishlist</option>
-          <option value="applied">Applied</option>
-          <option value="interview">Interview</option>
-          <option value="offer">Offer</option>
-          <option value="rejected">Rejected</option>
-        </select>
-      </div>
-
-      <div className="sort-container">
-        <label htmlFor="sortBy">
-          Sort by:
-        </label>
-
-        <select
-          id="sortBy"
-          value={sortBy}
-          onChange={(event) => setSortBy(event.target.value)}
-        >
-          <option value="Newest">Newest</option>
-          <option value="Oldest">Oldest</option>
-          <option value="Company A-Z">Company A-Z</option>
-          <option value="Company Z-A">Company Z-A</option>
-        </select>
-      </div>
+      <DashboardFilters
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        statusFilter={statusFilter}
+        setStatusFilter={setStatusFilter}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+      />
 
       <div className="jobs-list">
         {jobs.length === 0 ? (
