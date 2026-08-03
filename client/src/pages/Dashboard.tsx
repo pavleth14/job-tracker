@@ -48,20 +48,6 @@ function Dashboard() {
     navigate("/login");
   }
 
-  // explore this in more deep, and remove comment down Pavle
-
-  // 1. const filteredJobs = statusFilter === 'all' ? jobs : jobs.filter(job => job.status === statusFilter);
-
-  // 2. const filteredJobs = jobs.filter((job) => {
-  //   const matchesStatus =
-  //     statusFilter === "all" || job.status === statusFilter;
-
-  //   const matchesSearch =
-  //     job.company.toLowerCase().includes(searchTerm.toLowerCase());
-
-  //   return matchesStatus && matchesSearch;
-  // });
-
   const filteredJobs = jobs
     .filter((job) => {
       const matchesStatus =
