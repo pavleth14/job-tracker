@@ -12,8 +12,9 @@ function Dashboard() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [statusFilter, setStatusFilter] = useState("All");
+  const [statusFilter, setStatusFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState("Newest");
 
   async function fetchJobs(showLoading = false) {
     if (showLoading) {
@@ -42,19 +43,53 @@ function Dashboard() {
     localStorage.removeItem("token");
     navigate("/login");
   }
-  
+
   // explore this in more deep, and remove comment down Pavle
-  // const filteredJobs = statusFilter === 'all' ? jobs : jobs.filter(job => job.status === statusFilter);
 
-  const filteredJobs = jobs.filter((job) => {
-    const matchesStatus =
-      statusFilter === "all" || job.status === statusFilter;
+  // 1. const filteredJobs = statusFilter === 'all' ? jobs : jobs.filter(job => job.status === statusFilter);
 
-    const matchesSearch =
-      job.company.toLowerCase().includes(searchTerm.toLowerCase());
+  // 2. const filteredJobs = jobs.filter((job) => {
+  //   const matchesStatus =
+  //     statusFilter === "all" || job.status === statusFilter;
 
-    return matchesStatus && matchesSearch;
-  });
+  //   const matchesSearch =
+  //     job.company.toLowerCase().includes(searchTerm.toLowerCase());
+
+  //   return matchesStatus && matchesSearch;
+  // });
+
+  const filteredJobs = jobs
+    .filter((job) => {
+      const matchesStatus =
+        statusFilter === "all" || job.status === statusFilter;
+
+      const matchesSearch =
+        job.company.toLowerCase().includes(searchTerm.toLowerCase());
+
+      return matchesStatus && matchesSearch;
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case "Oldest":
+          return (
+            new Date(a.createdAt).getTime() -
+            new Date(b.createdAt).getTime()
+          );
+
+        case "Company A-Z":
+          return a.company.localeCompare(b.company);
+
+        case "Company Z-A":
+          return b.company.localeCompare(a.company);
+
+        case "Newest":
+        default:
+          return (
+            new Date(b.createdAt).getTime() -
+            new Date(a.createdAt).getTime()
+          );
+      }
+    });
 
 
   if (loading) {
@@ -107,6 +142,23 @@ function Dashboard() {
           <option value="interview">Interview</option>
           <option value="offer">Offer</option>
           <option value="rejected">Rejected</option>
+        </select>
+      </div>
+
+      <div className="sort-container">
+        <label htmlFor="sortBy">
+          Sort by:
+        </label>
+
+        <select
+          id="sortBy"
+          value={sortBy}
+          onChange={(event) => setSortBy(event.target.value)}
+        >
+          <option value="Newest">Newest</option>
+          <option value="Oldest">Oldest</option>
+          <option value="Company A-Z">Company A-Z</option>
+          <option value="Company Z-A">Company Z-A</option>
         </select>
       </div>
 

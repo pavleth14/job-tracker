@@ -164,3 +164,21 @@
   border-radius: 8px;
   font-size: 14px;
 }
+
+.sort-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.sort-container label {
+  font-weight: 600;
+}
+
+.sort-container select {
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+}
