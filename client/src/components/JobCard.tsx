@@ -22,6 +22,14 @@ function JobCard({ job, fetchJobs }: JobCardProps) {
   };
 
   const handleDelete = async () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this job?"
+    );
+  
+    if (!confirmed) {
+      return;
+    }
+  
     try {
       await deleteJob(job._id);
       await fetchJobs();
